@@ -36,7 +36,7 @@ func CreatToken(user string) (string, error) {
 
 // 验证token
 func checkToken(jsonToken paseto.JSONToken) bool {
-	if jsonToken.Audience == "user" && jsonToken.Expiration.After(time.Now()) && jsonToken.NotBefore.Before(time.Now()) {
+	if jsonToken.Audience == "userInfo" && jsonToken.Expiration.After(time.Now()) && jsonToken.NotBefore.Before(time.Now()) {
 		return true
 	} else {
 		return false

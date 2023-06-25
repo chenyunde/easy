@@ -2,16 +2,21 @@ package login
 
 import (
 	token2 "easy/token"
+	"easy/user"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 // Login 用户登录验证
 func Login(c *gin.Context) {
-	user := c.PostForm("user")
+	username := c.PostForm("userInfo")
 	password := c.PostForm("password")
-	if user == "user" && password == "password" {
-		token, _ := token2.CreatToken(user)
+	var u user.UInfo
+	u.Init()
+	u.UserName = username
+	u.PassWord = password
+	if u.UInfoCheck() {
+		token, _ := token2.CreatToken(username)
 		c.JSON(http.StatusOK, gin.H{
 			"message": "login successful",
 			"token":   token,
